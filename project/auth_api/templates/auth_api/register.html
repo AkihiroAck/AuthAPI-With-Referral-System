@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Регистрация | Запрос на код</title>
+</head>
+<body>
+    <h1>Вход</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label>Номер телефона:</label>
+        <input type="text" name="phone" required>
+        <button type="submit">Получить код</button>
+    </form>
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+    </hr>
+    <a href={% url 'verify_page' %}>Вход</a>
+</body>
+</html>

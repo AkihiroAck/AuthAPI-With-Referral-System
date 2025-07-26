@@ -22,7 +22,6 @@ class User(AbstractUser):
     USERNAME_FIELD = 'phone'
     username = None
     
-    
     # Добавляем только эти два поля для решения конфликта
     groups = models.ManyToManyField(
         Group,
@@ -38,6 +37,7 @@ class User(AbstractUser):
         related_name='custom_user_permissions',
         related_query_name='custom_user_permission',
     )
+
 
     def save(self, *args, **kwargs):
         if not self.invite_code:
@@ -81,8 +81,9 @@ class AuthCode(models.Model):
     code = models.CharField(max_length=4)
     created_at = models.DateTimeField(auto_now_add=True)
 
+
     @staticmethod
     def create_or_replace(phone, code):
         """Создает новый код, удаляя предыдущий для того же номера телефона."""
-        AuthCode.objects.filter(phone=phone).delete()  # Удаляем предыдущий код для номера
+        AuthCode.objects.filter(phone=phone).delete()
         return AuthCode.objects.create(phone=phone, code=code)

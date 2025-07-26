@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Профиль</title>
+</head>
+<body>
+    <h1>Профиль</h1>
+    <p>Номер телефона: {{ user.phone }}</p>
+    <p>Ваш инвайт-код: {{ user.invite_code }}</p>
+    <p>Активированный инвайт-код: {{ user.activated_invite_code }}</p>
+
+    <h2>Пользователи, которые активировали ваш инвайт-код:</h2>
+    <ul>
+        {% for invited_user in invited_users %}
+            <li>{{ invited_user }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Активировать инвайт-код:</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label>Инвайт-код:</label>
+        <input type="text" name="invite_code" required>
+        <button type="submit">Активировать</button>
+    </form>
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+</body>
+</html>
